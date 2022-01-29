@@ -25,15 +25,12 @@ final class NetworkAPI: NetworkAPIProtocol {
             return Fail(error: APIError.invalidURL)
                 .eraseToAnyPublisher()
         }
-        
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response -> Data in
+        return URLSession.shared.dataTaskPublisher(for: request).tryMap() { data, response -> Data in
                 guard let httpResponse = response as? HTTPURLResponse,
-                      (200 ... 299).contains(httpResponse.statusCode) else {
-                          throw APIError.network(string: "Response Error")
-                      }
+                    httpResponse.statusCode == 200 else {
+                        throw APIError.network(string: "Response Error")
+                    }
                 return data
-            }
-            .eraseToAnyPublisher()
+        }.eraseToAnyPublisher()
     }
 }
