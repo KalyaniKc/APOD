@@ -14,7 +14,7 @@ struct DatePickerView: View {
     var body: some View {
         VStack {
             VStack {
-                DatePicker("Test", selection: $selectedDate, displayedComponents: [.date])
+                DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date])
                     .datePickerStyle(.graphical)
                     .background(Color.blue)
                     .cornerRadius(10)

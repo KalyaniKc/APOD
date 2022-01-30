@@ -25,11 +25,13 @@ struct AstronomyInfoView: View {
                 APODView(detail:detail,
                          savedDate: $viewModel.selectedDate)
             } else {
-                ErrorView(errorText: "Something went wrong")
+                ErrorView(errorText: "Something went wrong. Please try after sometime.")
             }
-        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height).background(Color.black).edgesIgnoringSafeArea(.all)
+        }.frame(width: UIScreen.main.bounds.width,
+                height: UIScreen.main.bounds.height)
+            .background(Color.black).edgesIgnoringSafeArea(.all)
             .onAppear{
-                viewModel.getAPOD(for: Date.yesterday)
+                viewModel.getAPOD(for: Date())
             }
     }
 }

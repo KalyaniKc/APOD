@@ -11,6 +11,10 @@ struct ErrorView: View {
     @State var errorText: String
     
     var body: some View {
-        Text(errorText).font(.largeTitle).bold().foregroundColor(.white).accessibilityLabel("Error,,\(errorText)")
+        VStack(alignment: .center) {
+        Text(errorText).font(.largeTitle)
+            .bold().foregroundColor(.white)
+            .accessibilityLabel("Error,,\(errorText)")
+        }.padding()
     }
 }
