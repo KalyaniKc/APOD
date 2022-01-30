@@ -19,30 +19,48 @@ struct AstronomyInfoView: View {
                       let detail = viewModel.apodDetails  {
                 APODView(detail:detail)
             } else {
-                Text("Something went wrong")
+                ErrorView(errorText: "Something went wrong")
             }
-        }.background(Color.black).edgesIgnoringSafeArea(.all)
+        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height).background(Color.black).edgesIgnoringSafeArea(.all)
             .onAppear{
                 viewModel.getAPOD()
             }
     }
 }
 
+struct ErrorView: View {
+    @State var errorText: String
+    
+    var body: some View {
+        Text(errorText).font(.largeTitle).bold().foregroundColor(.white).accessibilityLabel("Error,,\(errorText)")
+    }
+}
+
 struct APODView: View {
     @State var detail: AstronomyDetailsModel
     var body: some View {
-        Image("sample")
-            .resizable()
-            .aspectRatio(UIImage(named: "sample")!.size, contentMode: .fill)
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2, alignment: .topLeading)
-        ScrollView {
-            VStack {
-                Text(detail.title).font(.largeTitle).bold()
-                Text(detail.date).font(.title3).bold()
-            }.foregroundColor(.white).padding()
-            Text(detail.explanation).font(.body).fontWeight(.medium).foregroundColor(.white)
+        VStack {
+            if let imgURL = URL(string: detail.image) {
+                APODImageView(url: imgURL,
+                              placeholder: {
+                    VStack(alignment: .center){
+                        LoadingView()
+                    }.padding()
+                }).aspectRatio(contentMode: .fit)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2, alignment: .topLeading)
+            }
+            ScrollView {
+                VStack {
+                    //title
+                    Text(detail.title).font(.largeTitle).fontWeight(.semibold).multilineTextAlignment(.center)
+                    //date
+                    Text(detail.date).font(.title3).fontWeight(.regular).multilineTextAlignment(.center)
+                }.foregroundColor(.white).padding()
+                //description
+                Text(detail.explanation).font(.body).fontWeight(.medium).foregroundColor(.white).multilineTextAlignment(.leading)
+            }
+            Spacer()
         }
-        Spacer()
     }
 }
 

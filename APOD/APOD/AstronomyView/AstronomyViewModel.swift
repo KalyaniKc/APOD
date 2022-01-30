@@ -13,6 +13,11 @@ enum ViewState {
     case display
     case error
 }
+protocol APODViewModelDelegate: AnyObject {
+    func getAPOD()
+    var state: ViewState { get set }
+    var apodDetails: AstronomyDetailsModel? { get set }
+}
 final class AstronomyViewModel: ObservableObject {
     
     @Published var state: ViewState = .loading

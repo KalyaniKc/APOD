@@ -15,7 +15,12 @@ protocol NetworkAPIProtocol {
 final class NetworkAPI: NetworkAPIProtocol {
     // MARK: Private Scope
     private init() {}
-    private let session = URLSession.shared
+    private lazy var session: URLSession = {
+        URLCache.shared.memoryCapacity = 512 * 1024 * 1024
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .returnCacheDataElseLoad
+        return URLSession(configuration: configuration)
+    }()
 
     // MARK: Public Scope
     static let shared = NetworkAPI()
@@ -25,7 +30,7 @@ final class NetworkAPI: NetworkAPIProtocol {
             return Fail(error: APIError.invalidURL)
                 .eraseToAnyPublisher()
         }
-        return URLSession.shared.dataTaskPublisher(for: request).tryMap() { data, response -> Data in
+        return session.dataTaskPublisher(for: request).tryMap() { data, response -> Data in
                 guard let httpResponse = response as? HTTPURLResponse,
                     httpResponse.statusCode == 200 else {
                         throw APIError.network(string: "Response Error")

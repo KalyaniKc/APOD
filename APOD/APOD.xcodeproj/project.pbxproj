@@ -13,6 +13,8 @@
 		CCA3006F27A4F642001203B4 /* AstronomyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3006E27A4F642001203B4 /* AstronomyViewModel.swift */; };
 		CCA3007127A55AAD001203B4 /* AstronomyDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007027A55AAD001203B4 /* AstronomyDetailsModel.swift */; };
 		CCA3007327A55C3D001203B4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007227A55C3D001203B4 /* LoadingView.swift */; };
+		CCA3007727A61A96001203B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007627A61A96001203B4 /* ImageLoader.swift */; };
+		CCA3007927A621B4001203B4 /* APODImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007827A621B4001203B4 /* APODImageView.swift */; };
 		CCD818E827A2ED9700BB8602 /* APODApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD818E727A2ED9700BB8602 /* APODApp.swift */; };
 		CCD818EA27A2ED9700BB8602 /* AstronomyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD818E927A2ED9700BB8602 /* AstronomyInfoView.swift */; };
 		CCD818EC27A2ED9A00BB8602 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD818EB27A2ED9A00BB8602 /* Assets.xcassets */; };
@@ -26,6 +28,8 @@
 		CCA3006E27A4F642001203B4 /* AstronomyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyViewModel.swift; sourceTree = "<group>"; };
 		CCA3007027A55AAD001203B4 /* AstronomyDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyDetailsModel.swift; sourceTree = "<group>"; };
 		CCA3007227A55C3D001203B4 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CCA3007627A61A96001203B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		CCA3007827A621B4001203B4 /* APODImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODImageView.swift; sourceTree = "<group>"; };
 		CCD818E427A2ED9700BB8602 /* APOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD818E727A2ED9700BB8602 /* APODApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODApp.swift; sourceTree = "<group>"; };
 		CCD818E927A2ED9700BB8602 /* AstronomyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyInfoView.swift; sourceTree = "<group>"; };
@@ -62,6 +66,15 @@
 			path = LoadingView;
 			sourceTree = "<group>";
 		};
+		CCA3007527A61A87001203B4 /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				CCA3007627A61A96001203B4 /* ImageLoader.swift */,
+				CCA3007827A621B4001203B4 /* APODImageView.swift */,
+			);
+			path = ImageLoader;
+			sourceTree = "<group>";
+		};
 		CCD818DB27A2ED9700BB8602 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +94,7 @@
 		CCD818E627A2ED9700BB8602 /* APOD */ = {
 			isa = PBXGroup;
 			children = (
+				CCA3007527A61A87001203B4 /* ImageLoader */,
 				CCA3007427A55C44001203B4 /* LoadingView */,
 				CCA3006D27A4F61B001203B4 /* AstronomyView */,
 				CCD818F527A43A0800BB8602 /* API */,
@@ -172,6 +186,8 @@
 			files = (
 				CCD818EA27A2ED9700BB8602 /* AstronomyInfoView.swift in Sources */,
 				CCA3007127A55AAD001203B4 /* AstronomyDetailsModel.swift in Sources */,
+				CCA3007927A621B4001203B4 /* APODImageView.swift in Sources */,
+				CCA3007727A61A96001203B4 /* ImageLoader.swift in Sources */,
 				CCD818E827A2ED9700BB8602 /* APODApp.swift in Sources */,
 				CCA3006827A4558A001203B4 /* ApodRequest.swift in Sources */,
 				CCA3006F27A4F642001203B4 /* AstronomyViewModel.swift in Sources */,
