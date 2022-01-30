@@ -11,7 +11,7 @@ struct AstronomyDetailsModel {
     var date: String
     var image: String
     var explanation: String
-    var mediaType: String
+    var mediaType: APODMediaType
     
     init(details: APODJsonResponse) {
         self.title = details.title

@@ -14,26 +14,34 @@ enum ViewState {
     case error
 }
 protocol APODViewModelDelegate: AnyObject {
-    func getAPOD()
+    func getAPOD(for date: Date)
     var state: ViewState { get set }
     var apodDetails: AstronomyDetailsModel? { get set }
 }
-final class AstronomyViewModel: ObservableObject {
+final class AstronomyViewModel: APODViewModelDelegate, ObservableObject {
     
     @Published var state: ViewState = .loading
     @Published var apodDetails: AstronomyDetailsModel?
+    @Published var selectedDate: Date? {
+        didSet {
+            if let d = selectedDate {
+                getAPOD(for: d)
+            }
+        }
+    }
+    private var lastSuccessfulResult: AstronomyDetailsModel?
     
     let networkAPI = NetworkAPI.shared
     private var cancellable: AnyCancellable?
     
-    private func buildAPODRequest() -> RequestBuilder {
-        return ApodAPI.init(date: Date())
+    private func buildAPODRequest(date: Date) -> RequestBuilder {
+        return ApodAPI.init(date: date)
     }
     
-    func getAPOD()  {
+    func getAPOD(for date: Date)  {
         state = .loading
         let jsonDecoder = JSONDecoder()
-        cancellable =  networkAPI.perform(buildAPODRequest())
+        cancellable =  networkAPI.perform(buildAPODRequest(date: date))
             .decode(type: APODJsonResponse.self, decoder: jsonDecoder)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] (result) in
@@ -46,16 +54,21 @@ final class AstronomyViewModel: ObservableObject {
             }, receiveValue: { [weak self]  (result) in
                 self?.state = .display
                 self?.apodDetails = AstronomyDetailsModel.init(details: result)
+                self?.lastSuccessfulResult = self?.apodDetails
             })
     }
 }
 
+enum APODMediaType: String, Codable {
+    case image
+    case video
+}
 struct APODJsonResponse : Codable {
     let copyright: String
     let date: String
     let explanation: String
     let hdurl: String
-    let media_type: String
+    let media_type: APODMediaType
     let title: String
     let url: String
 }

@@ -15,7 +15,8 @@ class ImageLoader: ObservableObject {
     private var cancellable: AnyCancellable?
     private var cache: ImageCache?
     
-    init(url: URL, cache: ImageCache? = nil) {
+    init(url: URL,
+         cache: ImageCache? = nil) {
         self.url = url
         self.cache = cache
     }

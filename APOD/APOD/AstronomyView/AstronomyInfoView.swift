@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct AstronomyInfoView: View {
-    @StateObject var viewModel = AstronomyViewModel()
+    @ObservedObject var viewModel = AstronomyViewModel()
+    @State var updatedDate: Date? {
+        didSet {
+            viewModel.selectedDate = updatedDate!
+        }
+    }
     private var loader = LoadingView()
     
     var body: some View {
@@ -17,55 +22,41 @@ struct AstronomyInfoView: View {
                 LoadingView()
             } else if viewModel.state == .display,
                       let detail = viewModel.apodDetails  {
-                APODView(detail:detail)
+                APODView(detail:detail,
+                         savedDate: $viewModel.selectedDate)
             } else {
                 ErrorView(errorText: "Something went wrong")
             }
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height).background(Color.black).edgesIgnoringSafeArea(.all)
             .onAppear{
-                viewModel.getAPOD()
+                viewModel.getAPOD(for: Date.yesterday)
             }
     }
 }
 
-struct ErrorView: View {
-    @State var errorText: String
-    
-    var body: some View {
-        Text(errorText).font(.largeTitle).bold().foregroundColor(.white).accessibilityLabel("Error,,\(errorText)")
-    }
-}
-
-struct APODView: View {
-    @State var detail: AstronomyDetailsModel
-    var body: some View {
-        VStack {
-            if let imgURL = URL(string: detail.image) {
-                APODImageView(url: imgURL,
-                              placeholder: {
-                    VStack(alignment: .center){
-                        LoadingView()
-                    }.padding()
-                }).aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2, alignment: .topLeading)
-            }
-            ScrollView {
-                VStack {
-                    //title
-                    Text(detail.title).font(.largeTitle).fontWeight(.semibold).multilineTextAlignment(.center)
-                    //date
-                    Text(detail.date).font(.title3).fontWeight(.regular).multilineTextAlignment(.center)
-                }.foregroundColor(.white).padding()
-                //description
-                Text(detail.explanation).font(.body).fontWeight(.medium).foregroundColor(.white).multilineTextAlignment(.leading)
-            }
-            Spacer()
-        }
-    }
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         AstronomyInfoView()
+    }
+}
+
+extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var month: Int {
+        return Calendar.current.component(.month,  from: self)
+    }
+    var isLastDayOfMonth: Bool {
+        return dayAfter.month != month
     }
 }

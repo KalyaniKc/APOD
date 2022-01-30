@@ -16,12 +16,13 @@ final class NetworkAPI: NetworkAPIProtocol {
     // MARK: Private Scope
     private init() {}
     private lazy var session: URLSession = {
-        URLCache.shared.memoryCapacity = 512 * 1024 * 1024
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .returnCacheDataElseLoad
         return URLSession(configuration: configuration)
     }()
 
+    var lastSuccessfulResult: CachedURLResponse?
+    
     // MARK: Public Scope
     static let shared = NetworkAPI()
 
@@ -31,11 +32,16 @@ final class NetworkAPI: NetworkAPIProtocol {
                 .eraseToAnyPublisher()
         }
         return session.dataTaskPublisher(for: request).tryMap() { data, response -> Data in
-                guard let httpResponse = response as? HTTPURLResponse,
-                    httpResponse.statusCode == 200 else {
-                        throw APIError.network(string: "Response Error")
-                    }
-                return data
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                      if let lastSuccData = self.lastSuccessfulResult?.data {
+                          return lastSuccData
+                      } else {
+                          throw APIError.network(string: "Response Error")
+                      }
+                  }
+            self.lastSuccessfulResult = CachedURLResponse(response: response, data: data)
+            return data
         }.eraseToAnyPublisher()
     }
 }
