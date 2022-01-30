@@ -32,6 +32,7 @@ final class NetworkAPI: NetworkAPIProtocol {
                 .eraseToAnyPublisher()
         }
         return session.dataTaskPublisher(for: request).tryMap() { data, response -> Data in
+            print(response)
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode == 200 else {
                       if let lastSuccData = self.lastSuccessfulResult?.data {
@@ -42,6 +43,9 @@ final class NetworkAPI: NetworkAPIProtocol {
                   }
             self.lastSuccessfulResult = CachedURLResponse(response: response, data: data)
             return data
+        }.mapError { error -> Error in
+            print(error)
+            return APIError.network(string: "Response Error")
         }.eraseToAnyPublisher()
     }
 }

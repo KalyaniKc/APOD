@@ -29,13 +29,17 @@ class ImageLoader: ObservableObject {
             self.image = image
             return
         }
-        
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .handleEvents(receiveOutput: { [weak self] in self?.cache($0) })
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in self?.image = $0 }
+        if UIApplication.shared.canOpenURL(url) {
+            cancellable = URLSession.shared.dataTaskPublisher(for: url)
+                .subscribe(on: DispatchQueue.global(qos: .background))
+                .map { UIImage(data: $0.data) }
+                .replaceError(with: nil)
+                .handleEvents(receiveOutput: { [weak self] in self?.cache($0) })
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] in self?.image = $0 }
+        } else {
+            self.image = UIImage.init(systemName: "photo.circle.fill")?.withTintColor(.white)
+        }
     }
     
     private func cache(_ image: UIImage?) {

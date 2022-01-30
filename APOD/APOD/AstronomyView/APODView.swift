@@ -33,12 +33,16 @@ struct APODView: View {
                 } else {
                     // add video view
                     if let imgURL = URL(string: detail.image) {
-                        Link(destination: imgURL) {
-                            Label("play", systemImage: "play.circle")
-                        }
+                        VStack(alignment: .center) {
+                            Link(destination: imgURL) {
+                                Label("play", systemImage: "play.circle")
+                                    .font(.title3)
+                                    .multilineTextAlignment(.center)
+                            }
+                        }.padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 50))
                     }
                 }
-            }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2, alignment: .topLeading)
+            }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2, alignment: .center)
             ScrollView {
                 VStack {
                     //title

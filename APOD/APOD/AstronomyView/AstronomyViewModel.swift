@@ -46,8 +46,13 @@ final class AstronomyViewModel: APODViewModelDelegate, ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] (result) in
                 switch result {
-                case .failure(let error):
-                    self?.state = .error
+                case .failure:
+                    if let detail = self?.lastSuccessfulResult {
+                        self?.state = .display
+                        self?.apodDetails = detail
+                    } else {
+                        self?.state = .error
+                    }
                 default:
                     break
                 }
@@ -59,16 +64,21 @@ final class AstronomyViewModel: APODViewModelDelegate, ObservableObject {
     }
 }
 
-enum APODMediaType: String, Codable {
+enum APODMediaType: String, Decodable {
     case image
     case video
 }
-struct APODJsonResponse : Codable {
-    let copyright: String
+struct APODJsonResponse : Decodable {
+    let copyright: String?
     let date: String
     let explanation: String
-    let hdurl: String
+    let hdurl: String?
     let media_type: APODMediaType
     let title: String
     let url: String
+}
+
+struct APODError: Error, Codable {
+    let code: Int
+    let msg: String
 }
