@@ -35,7 +35,7 @@ struct APODView: View {
                     if let imgURL = URL(string: detail.image) {
                         VStack(alignment: .center) {
                             Link(destination: imgURL) {
-                                Label("play", systemImage: "play.circle")
+                                Label("Play", systemImage: "play.circle")
                                     .font(.title3)
                                     .multilineTextAlignment(.center)
                             }
@@ -46,7 +46,9 @@ struct APODView: View {
             ScrollView {
                 VStack {
                     //title
-                    Text(detail.title).font(.largeTitle).fontWeight(.semibold).multilineTextAlignment(.center)
+                    Text(detail.title).font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
                     //date
                     Button(action: {
                         showDatePicker.toggle()

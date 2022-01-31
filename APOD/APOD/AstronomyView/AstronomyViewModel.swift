@@ -24,8 +24,10 @@ final class AstronomyViewModel: APODViewModelDelegate, ObservableObject {
     @Published var apodDetails: AstronomyDetailsModel?
     @Published var selectedDate: Date? {
         didSet {
-            if let d = selectedDate {
-                getAPOD(for: d)
+            if oldValue != selectedDate {
+                if let d = selectedDate {
+                    getAPOD(for: d)
+                }
             }
         }
     }

@@ -14,6 +14,8 @@ struct AstronomyInfoView: View {
             viewModel.selectedDate = updatedDate!
         }
     }
+    @State var showDatePickerForError: Bool = false
+    
     private var loader = LoadingView()
     
     var body: some View {
@@ -25,7 +27,14 @@ struct AstronomyInfoView: View {
                 APODView(detail:detail,
                          savedDate: $viewModel.selectedDate)
             } else {
-                ErrorView(errorText: "Something went wrong. Please try after sometime.")
+                if showDatePickerForError {
+                    VStack {
+                        DatePickerView(showDatePicker: $showDatePickerForError, savedDate: $viewModel.selectedDate)
+                    }
+                } else {
+                    ErrorView(errorText: "Something went wrong. Please select another date",
+                              showDatePicker: $showDatePickerForError)
+                }
             }
         }.frame(width: UIScreen.main.bounds.width,
                 height: UIScreen.main.bounds.height)
@@ -40,25 +49,5 @@ struct AstronomyInfoView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         AstronomyInfoView()
-    }
-}
-
-extension Date {
-    static var yesterday: Date { return Date().dayBefore }
-    static var tomorrow:  Date { return Date().dayAfter }
-    var dayBefore: Date {
-        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
-    }
-    var dayAfter: Date {
-        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
-    }
-    var noon: Date {
-        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
-    }
-    var month: Int {
-        return Calendar.current.component(.month,  from: self)
-    }
-    var isLastDayOfMonth: Bool {
-        return dayAfter.month != month
     }
 }

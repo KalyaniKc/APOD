@@ -16,7 +16,7 @@ struct DatePickerView: View {
             VStack {
                 DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date])
                     .datePickerStyle(.graphical)
-                    .background(Color.blue)
+                    .background(Color.red)
                     .cornerRadius(10)
                     .accentColor(.white)
                     .animation(.linear)
@@ -42,7 +42,7 @@ struct DatePickerView: View {
                     })
                     
                 }
-                .padding(.horizontal)
+                .padding(.horizontal).foregroundColor(.white)
             }
         }
         .padding(EdgeInsets.init(top: 30, leading: 40, bottom: 120, trailing: 50)).background(Color.gray.opacity(0.1))
