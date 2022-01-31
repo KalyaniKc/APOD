@@ -65,22 +65,3 @@ final class AstronomyViewModel: APODViewModelDelegate, ObservableObject {
             })
     }
 }
-
-enum APODMediaType: String, Decodable {
-    case image
-    case video
-}
-struct APODJsonResponse : Decodable {
-    let copyright: String?
-    let date: String
-    let explanation: String
-    let hdurl: String?
-    let media_type: APODMediaType
-    let title: String
-    let url: String
-}
-
-struct APODError: Error, Codable {
-    let code: Int
-    let msg: String
-}

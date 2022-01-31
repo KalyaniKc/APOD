@@ -18,6 +18,7 @@
 		CCA3007C27A699B8001203B4 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007B27A699B8001203B4 /* DatePickerView.swift */; };
 		CCA3007E27A6DA43001203B4 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007D27A6DA43001203B4 /* ErrorView.swift */; };
 		CCA3008027A6DA79001203B4 /* APODView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3007F27A6DA79001203B4 /* APODView.swift */; };
+		CCA3008227A76A92001203B4 /* APODResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3008127A76A92001203B4 /* APODResponse.swift */; };
 		CCD818E827A2ED9700BB8602 /* APODApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD818E727A2ED9700BB8602 /* APODApp.swift */; };
 		CCD818EA27A2ED9700BB8602 /* AstronomyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD818E927A2ED9700BB8602 /* AstronomyInfoView.swift */; };
 		CCD818EC27A2ED9A00BB8602 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD818EB27A2ED9A00BB8602 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		CCA3007B27A699B8001203B4 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		CCA3007D27A6DA43001203B4 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		CCA3007F27A6DA79001203B4 /* APODView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODView.swift; sourceTree = "<group>"; };
+		CCA3008127A76A92001203B4 /* APODResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODResponse.swift; sourceTree = "<group>"; };
 		CCD818E427A2ED9700BB8602 /* APOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD818E727A2ED9700BB8602 /* APODApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODApp.swift; sourceTree = "<group>"; };
 		CCD818E927A2ED9700BB8602 /* AstronomyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyInfoView.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				CCA3006727A4558A001203B4 /* ApodRequest.swift */,
 				CCA3006927A46AA7001203B4 /* APIError.swift */,
 				CCA3006B27A46B27001203B4 /* NetworkAPI.swift */,
+				CCA3008127A76A92001203B4 /* APODResponse.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				CCA3007927A621B4001203B4 /* APODImageView.swift in Sources */,
 				CCA3007727A61A96001203B4 /* ImageLoader.swift in Sources */,
 				CCD818E827A2ED9700BB8602 /* APODApp.swift in Sources */,
+				CCA3008227A76A92001203B4 /* APODResponse.swift in Sources */,
 				CCA3006827A4558A001203B4 /* ApodRequest.swift in Sources */,
 				CCA3007C27A699B8001203B4 /* DatePickerView.swift in Sources */,
 				CCA3006F27A4F642001203B4 /* AstronomyViewModel.swift in Sources */,
